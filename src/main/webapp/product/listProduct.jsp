@@ -143,9 +143,9 @@
 	</tr>
 	
 	<c:set var="i" value="0"/>
-	<c:forEach var="product" items="${list}">
+	<c:forEach var="product" items = "${list}">
 		<c:set var="i" value="${i+1}"/>
-		
+		 
 	<tr class="ct_list_pop">
 		<td align="center">${i }</td>
 		<td></td>
