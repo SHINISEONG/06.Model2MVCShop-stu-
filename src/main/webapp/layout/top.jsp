@@ -19,6 +19,9 @@
   </tr>
   <tr>
     <td width="800" height="30"><h2>Model2 MVC Shop</h2></td>
+    <if test ="${!(user.role eq 'admin')}">
+    	 <td align="right"><a href="/listCart.do" target="rightFrame">장바구니 보기</a></td>
+   	</if>
   </tr>
   <tr>
     <td height="20" align="right" background="/images/img_bg.gif">

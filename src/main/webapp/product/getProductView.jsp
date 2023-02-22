@@ -40,6 +40,12 @@ function fncAddProduct(){
 	document.detailForm.submit();
 }
 
+function fncAddCart(){
+	
+	document.detailForm.action='/addCart.do';
+	document.detailForm.submit();
+}
+
 function resetData(){
 	document.detailForm.reset();
 }
@@ -266,12 +272,40 @@ function resetData(){
 		<td align="right">
 		<table border="0" cellspacing="0" cellpadding="0">
 			<tr>
+				
+				
+				<if test = "${param.menu eq 'search' && !(user.role eq 'admin')}">
+					
+					<td>
+					장바구니에 담을 수량 &nbsp;
+					<select name="quantity" class="ct_input_g" style="width:80px">
+						<c:forEach var="i" begin = "1" end = "${product.stock }" >
+							<option value="${i }" >${i }</option>
+						</c:forEach>
+					</select>
+					</td>
+					<td width="30"></td>
+					<td width="17" height="23">
+						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
+					</td>
+					
+					
+					<td background="/images/ct_btnbg02.gif" class="ct_btn01"  style="padding-top: 3px;">
+						<input type = "hidden" name = "prodNo" value = "${param.prodNo }"/>
+						<a href="javascript:fncAddCart();">장바구니에 담기</a>
+					</td>
+					<td width="14" height="23">
+						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
+					</td>
+					<td width="30"></td>
+				</if>
 				<td width="17" height="23">
 					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 				</td>
 				<c:choose>
 					<c:when test = "${empty updateChecker || updateChecker}">
-						<td background="/images/ct_btnbg02.gif" class="ct_btn01"  style="padding-top: 3px;">
+					
+					<td background="/images/ct_btnbg02.gif" class="ct_btn01"  style="padding-top: 3px;">
 					<c:choose>
 						<c:when test = "${param.menu eq 'manage'}">
 							<input type = "hidden" name = "prodNo" value = "${param.prodNo }"/>

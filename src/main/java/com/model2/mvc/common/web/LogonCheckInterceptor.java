@@ -66,6 +66,13 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 				System.out.println("[ LogonCheckInterceptor end........]\n");
 				return true;
 			}
+		/*
+			if(uri.indexOf("addCart") != -1 ||	uri.indexOf("listCart") != -1) {
+				System.out.println("[ 비회원 장바구니 사용 시도 .... ]");
+				session.setAttribute("anonymousCart", true);
+				return true;
+			}
+		*/
 			
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 			System.out.println("[ 로그인 이전 ... ]");

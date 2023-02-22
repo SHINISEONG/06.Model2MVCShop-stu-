@@ -1,5 +1,8 @@
-package com.model2.mvc.web.user;
+package com.model2.mvc.web.purchase;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -174,6 +177,75 @@ public class PurchaseController {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("forward:/listPurchase.do?&currentPage="+currentPage);
+		return modelAndView;
+	}
+	
+	@RequestMapping("/listCart.do")
+	public ModelAndView listCart(@ModelAttribute("search")Search search,
+								 HttpSession session) throws Exception {
+		
+		int cartTranNo=1;
+		
+		if((purchaseService.checkCart(((User)session.getAttribute("user")).getUserId())) != null) {
+			cartTranNo = purchaseService.checkCart(((User)session.getAttribute("user")).getUserId());
+		}
+		
+		search.setCartTranNo(cartTranNo);
+		
+		if(search.getCurrentPage()==0) {
+			search.setCurrentPage(1);
+		}
+		
+		search.setPageSize(100);
+		
+		Map<String,Object> map = productService.getProductList(search);
+		
+	
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.addObject("list", map.get("list"));
+		modelAndView.addObject("resultPage", resultPage);
+		modelAndView.addObject("search", search);
+		modelAndView.setViewName("forward:/purchase/listCart.jsp");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping("/addCart.do")
+	public ModelAndView addCart(@RequestParam("prodNo") int prodNo,
+								@RequestParam("quantity") int quantity,
+								HttpSession session) throws Exception {
+		int cartTranNo=0;
+		
+		if((purchaseService.checkCart(((User)session.getAttribute("user")).getUserId())) != null) {
+			cartTranNo = purchaseService.checkCart(((User)session.getAttribute("user")).getUserId());
+		}
+		
+		if (cartTranNo == 0) {
+			Purchase purchase = new Purchase();
+			
+			purchase.setBuyer((User)session.getAttribute("user"));
+			Product product = new Product();
+			product.setProdNo(prodNo);
+			purchase.setPurchaseProd(product);
+			purchase.setTranCode("9");
+			purchaseService.addPurchase(purchase);
+			cartTranNo = purchaseService.checkCart(((User)session.getAttribute("user")).getUserId());
+			
+		}
+		
+			Map<String,Integer> map = new HashMap<String,Integer>();
+			
+			map.put("cartTranNo", cartTranNo);
+			map.put("prodNo", prodNo);
+			map.put("quantity", quantity);
+			purchaseService.addCart(map);
+		
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/purchase/addCartResultView.jsp");
 		return modelAndView;
 	}
 }

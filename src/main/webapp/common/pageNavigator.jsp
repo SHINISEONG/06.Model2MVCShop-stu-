@@ -14,6 +14,10 @@
 		<c:when test = "${pageType eq 'purchase'}">
 			<c:set var = "fncName" value =  "fncGetPurchaseList"/>
 		</c:when>
+		
+		<c:when test = "${pageType eq 'cart' }">
+			<c:set var = "fncName" value =  "fncGetCartList"/>
+		</c:when>
 	</c:choose>	
 		
 		<c:if test="${ resultPage.currentPage <= resultPage.pageUnit }">

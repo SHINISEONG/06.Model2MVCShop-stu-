@@ -81,6 +81,17 @@
 		
 	</insert>
 	
+	<insert id="addCart"		parameterType="map" >
+		INSERT 
+		INTO cart (tran_no, prod_no, quantity) 
+		VALUES (
+				#{cartTranNo:NUMERIC}, 
+				#{prodNo:NUMERIC},
+				#{quantity:NUMERIC}
+     		   )
+	</insert>
+
+	
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getPurchase"	parameterType="int"	resultMap="purchaseSelectMap">
 		SELECT 
@@ -122,6 +133,19 @@
 					buyer_id = #{value}
 				</if>
 			  </where> ) countTable						
+	 </select>
+	 
+	 <select id="checkCart"	parameterType="string"	resultType="Integer">
+	 	SELECT tran_no
+	 	FROM transaction
+	 	WHERE buyer_id = #{userId:VARCHAR}
+	 	AND tran_status_code LIKE '%9%'
+	 </select>
+	 
+	 <select id="getCartQuantity"	parameterType="int"	resultType="Integer">
+	 	SELECT quantity
+	 	FROM cart
+	 	WHERE tran_no = #{cartTranNo}
 	 </select>
 	 
 	 <update id="updatePurchase" parameterType="purchase">

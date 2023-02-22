@@ -29,7 +29,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public void addPurchase(Purchase purchase) throws Exception {
 		purchaseDao.addPurchase(purchase);
+	}
 	
+	@Override
+	public void addCart(Map<String, Integer> map) throws Exception {
+		purchaseDao.addCart(map);
 	}
 
 	@Override
@@ -68,5 +72,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public int getTotalCount(String userId) throws Exception {
 		return purchaseDao.getTotalCount(userId);
 	}
+
+	@Override
+	public Integer checkCart(String userId) throws Exception {
+		return purchaseDao.checkCart(userId);
+	}
+
+	
 
 }

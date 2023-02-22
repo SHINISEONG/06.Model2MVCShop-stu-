@@ -1,8 +1,10 @@
 
-DROP TABLE transaction;
+
+DROP TABLE stock;
+DROP TABLE cart;
 DROP TABLE product;
 DROP TABLE users;
-DROP TABLE stock;
+DROP TABLE transaction;
 
 DROP SEQUENCE seq_product_prod_no;
 DROP SEQUENCE seq_transaction_tran_no;
@@ -22,6 +24,7 @@ CREATE TABLE users (
 	addr 				VARCHAR2(100),
 	email 				VARCHAR2(50),
 	reg_date 		DATE,
+	cart_tran_no	NUMBER(16),
 	PRIMARY KEY(user_id)
 );
 
@@ -43,6 +46,7 @@ CREATE TABLE stock (
 	PRIMARY KEY(prod_no)
 );
 
+
 CREATE TABLE transaction ( 
 	tran_no 						NUMBER 			NOT NULL,
 	prod_no 					NUMBER(16)		NOT NULL REFERENCES product(prod_no),
@@ -59,83 +63,92 @@ CREATE TABLE transaction (
 	PRIMARY KEY(tran_no)
 );
 
+CREATE TABLE cart (
+	tran_no						NUMBER(16)		NOT NULL REFERENCES transaction(tran_no),
+	prod_no						NUMBER(16)		NOT NULL REFERENCES product(prod_no),
+	quantity					NUMBER(16)		NOT NULL
+);
+
 
 INSERT 
-INTO users ( user_id, user_name, password, role, ssn, cell_phone, addr, email, reg_date ) 
-VALUES ( 'admin', 'admin', '1234', 'admin', NULL, NULL, '서울시 서초구', 'admin@mvc.com',to_date('2012/01/14 10:48:43', 'YYYY/MM/DD HH24:MI:SS')); 
+INTO users ( user_id, user_name, password, role, ssn, cell_phone, addr, email, reg_date, cart_tran_no ) 
+VALUES ( 'admin', 'admin', '1234', 'admin', NULL, NULL, '서울시 서초구', 'admin@mvc.com',to_date('2012/01/14 10:48:43', 'YYYY/MM/DD HH24:MI:SS'),null); 
 
 INSERT 
-INTO users ( user_id, user_name, password, role, ssn, cell_phone, addr, email, reg_date ) 
-VALUES ( 'manager', 'manager', '1234', 'admin', NULL, NULL, NULL, 'manager@mvc.com', to_date('2012/01/14 10:48:43', 'YYYY/MM/DD HH24:MI:SS'));          
+INTO users ( user_id, user_name, password, role, ssn, cell_phone, addr, email, reg_date, cart_tran_no ) 
+VALUES ( 'manager', 'manager', '1234', 'admin', NULL, NULL, NULL, 'manager@mvc.com', to_date('2012/01/14 10:48:43', 'YYYY/MM/DD HH24:MI:SS'),null);          
 
 INSERT INTO users 
-VALUES ( 'user01', 'SCOTT', '1111', 'user', NULL, NULL, NULL, NULL, sysdate); 
+VALUES ( 'user01', 'SCOTT', '1111', 'user', NULL, NULL, NULL, NULL, sysdate,null); 
 
 INSERT INTO users 
-VALUES ( 'user02', 'SCOTT', '2222', 'user', NULL, NULL, NULL, NULL, sysdate); 
+VALUES ( 'user02', 'SCOTT', '2222', 'user', NULL, NULL, NULL, NULL, sysdate,null); 
 
 INSERT INTO users 
-VALUES ( 'user03', 'SCOTT', '3333', 'user', NULL, NULL, NULL, NULL, sysdate); 
+VALUES ( 'user03', 'SCOTT', '3333', 'user', NULL, NULL, NULL, NULL, sysdate,null); 
 
 INSERT INTO users 
-VALUES ( 'user04', 'SCOTT', '4444', 'user', NULL, NULL, NULL, NULL, sysdate); 
+VALUES ( 'user04', 'SCOTT', '4444', 'user', NULL, NULL, NULL, NULL, sysdate,null); 
 
 INSERT INTO users 
-VALUES ( 'user05', 'SCOTT', '5555', 'user', NULL, NULL, NULL, NULL, sysdate); 
+VALUES ( 'user05', 'SCOTT', '5555', 'user', NULL, NULL, NULL, NULL, sysdate,null); 
 
 INSERT INTO users 
-VALUES ( 'user06', 'SCOTT', '6666', 'user', NULL, NULL, NULL, NULL, sysdate); 
+VALUES ( 'user06', 'SCOTT', '6666', 'user', NULL, NULL, NULL, NULL, sysdate,null); 
 
 INSERT INTO users 
-VALUES ( 'user07', 'SCOTT', '7777', 'user', NULL, NULL, NULL, NULL, sysdate); 
+VALUES ( 'user07', 'SCOTT', '7777', 'user', NULL, NULL, NULL, NULL, sysdate,null); 
 
 INSERT INTO users 
-VALUES ( 'user08', 'SCOTT', '8888', 'user', NULL, NULL, NULL, NULL, sysdate); 
+VALUES ( 'user08', 'SCOTT', '8888', 'user', NULL, NULL, NULL, NULL, sysdate,null); 
 
 INSERT INTO users 
-VALUES ( 'user09', 'SCOTT', '9999', 'user', NULL, NULL, NULL, NULL, sysdate); 
+VALUES ( 'user09', 'SCOTT', '9999', 'user', NULL, NULL, NULL, NULL, sysdate,null); 
 
 INSERT INTO users 
-VALUES ( 'user10', 'SCOTT', '1010', 'user', NULL, NULL, NULL, NULL, sysdate); 
+VALUES ( 'user10', 'SCOTT', '1010', 'user', NULL, NULL, NULL, NULL, sysdate,null); 
 
 INSERT INTO users 
-VALUES ( 'user11', 'SCOTT', '1111', 'user', NULL, NULL, NULL, NULL, sysdate);
+VALUES ( 'user11', 'SCOTT', '1111', 'user', NULL, NULL, NULL, NULL, sysdate,null);
 
 INSERT INTO users 
-VALUES ( 'user12', 'SCOTT', '1212', 'user', NULL, NULL, NULL, NULL, sysdate);
+VALUES ( 'user12', 'SCOTT', '1212', 'user', NULL, NULL, NULL, NULL, sysdate, NULL);
 
 INSERT INTO users 
-VALUES ( 'user13', 'SCOTT', '1313', 'user', NULL, NULL, NULL, NULL, sysdate);
+VALUES ( 'user13', 'SCOTT', '1313', 'user', NULL, NULL, NULL, NULL, sysdate, NULL);
 
 INSERT INTO users 
-VALUES ( 'user14', 'SCOTT', '1414', 'user', NULL, NULL, NULL, NULL, sysdate);
+VALUES ( 'user14', 'SCOTT', '1414', 'user', NULL, NULL, NULL, NULL, sysdate, NULL);
 
 INSERT INTO users 
-VALUES ( 'user15', 'SCOTT', '1515', 'user', NULL, NULL, NULL, NULL, sysdate);
+VALUES ( 'user15', 'SCOTT', '1515', 'user', NULL, NULL, NULL, NULL, sysdate, NULL);
 
 INSERT INTO users 
-VALUES ( 'user16', 'SCOTT', '1616', 'user', NULL, NULL, NULL, NULL, sysdate);
+VALUES ( 'user16', 'SCOTT', '1616', 'user', NULL, NULL, NULL, NULL, sysdate, NULL);
 
 INSERT INTO users 
-VALUES ( 'user17', 'SCOTT', '1717', 'user', NULL, NULL, NULL, NULL, sysdate);
+VALUES ( 'user17', 'SCOTT', '1717', 'user', NULL, NULL, NULL, NULL, sysdate, NULL);
 
 INSERT INTO users 
-VALUES ( 'user18', 'SCOTT', '1818', 'user', NULL, NULL, NULL, NULL, sysdate);
+VALUES ( 'user18', 'SCOTT', '1818', 'user', NULL, NULL, NULL, NULL, sysdate, NULL);
 
 INSERT INTO users 
-VALUES ( 'user19', 'SCOTT', '1919', 'user', NULL, NULL, NULL, NULL, sysdate);
+VALUES ( 'user19', 'SCOTT', '1919', 'user', NULL, NULL, NULL, NULL, sysdate, NULL);
 
 INSERT INTO users 
-VALUES ( 'user20', 'SCOTT', '2020', 'user', NULL, NULL, NULL, NULL, sysdate);
+VALUES ( 'user20', 'SCOTT', '2020', 'user', NULL, NULL, NULL, NULL, sysdate, NULL);
 
 INSERT INTO users 
-VALUES ( 'user21', 'SCOTT', '2121', 'user', NULL, NULL, NULL, NULL, sysdate);
+VALUES ( 'user21', 'SCOTT', '2121', 'user', NULL, NULL, NULL, NULL, sysdate, NULL);
 
 INSERT INTO users 
-VALUES ( 'user22', 'SCOTT', '2222', 'user', NULL, NULL, NULL, NULL, sysdate);
+VALUES ( 'user22', 'SCOTT', '2222', 'user', NULL, NULL, NULL, NULL, sysdate, NULL);
 
 INSERT INTO users 
-VALUES ( 'user23', 'SCOTT', '2323', 'user', NULL, NULL, NULL, NULL, sysdate);
+VALUES ( 'user23', 'SCOTT', '2323', 'user', NULL, NULL, NULL, NULL, sysdate, NULL);
+
+INSERT INTO users 
+VALUES ( 'user24', 'SCOTT', '2323', 'user', NULL, NULL, NULL, NULL, sysdate, NULL);
            
            
 insert into product values (seq_product_prod_no.nextval,'vaio vgn FS70B','소니 바이오 노트북 신동품','20120514',2000000, 'AHlbAAAAtBqyWAAA.jpg',to_date('2012/12/14 11:27:27', 'YYYY/MM/DD HH24:MI:SS'));

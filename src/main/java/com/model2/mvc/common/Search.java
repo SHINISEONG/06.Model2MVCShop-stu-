@@ -15,7 +15,7 @@ public class Search {
 	
 	private int endRowNum;
 	private int startRowNum;
-	
+	private int cartTranNo;
 	
 	public Search(){
 	}
@@ -87,13 +87,25 @@ public class Search {
 	public void setSearchOrderType(String searchOrderType) {
 		this.searchOrderType = searchOrderType;
 	}
+	
+	
+	
+	public int getCartTranNo() {
+		return cartTranNo;
+	}
+
+	public void setCartTranNo(int cartTranNo) {
+		this.cartTranNo = cartTranNo;
+	}
 
 	@Override
 	public String toString() {
 		return "Search [currentPage=" + currentPage + ", searchCondition=" + searchCondition + ", searchKeyword="
 				+ searchKeyword + ", searchOrderType=" + searchOrderType + ", searchMinPrice=" + searchMinPrice
 				+ ", searchMaxPrice=" + searchMaxPrice + ", pageSize=" + pageSize + ", pageUnit=" + pageUnit
-				+ ", endRowNum=" + endRowNum + ", startRowNum=" + startRowNum + "]";
+				+ ", endRowNum=" + endRowNum + ", startRowNum=" + startRowNum + ", cartTranNo=" + cartTranNo + "]";
 	}
+
+	
 
 }

@@ -1,4 +1,4 @@
-package com.model2.mvc.web.user;
+package com.model2.mvc.web.product;
 
 import java.util.Map;
 
@@ -91,6 +91,8 @@ public class ProductController {
 		
 		return "forward:/product/listProduct.jsp";
 	}
+	
+	
 	
 	@RequestMapping("/updateProduct.do")
 	public String updateProduct(@ModelAttribute("product") Product product , Model model,

@@ -20,6 +20,8 @@ public class User {
 	private String phone1;
 	private String phone2;
 	private String phone3;
+	////////////// 다중품목 구매 및 장바구니 구현을 위한  Field ////////////
+	private int cartTranNo;
 
 	
 	
@@ -99,9 +101,20 @@ public class User {
 		return phone3;
 	}
 
+	public int getCartTranNo() {
+		return cartTranNo;
+	}
+
+	public void setCartTranNo(int cartTranNo) {
+		this.cartTranNo = cartTranNo;
+	}
+
 	@Override
 	public String toString() {
-		return "UserVO : [userId] "+userId+" [userName] "+userName+" [password] "+password+" [role] "+ role
-			+" [ssn] "+ssn+" [phone] "+phone+" [email] "+email+" [regDate] "+regDate;
+		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", role=" + role
+				+ ", ssn=" + ssn + ", phone=" + phone + ", addr=" + addr + ", email=" + email + ", regDate=" + regDate
+				+ ", cartTranNo=" + cartTranNo + "]";
 	}
+
+	
 }

@@ -33,6 +33,11 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	public void addPurchase(Purchase purchase) throws Exception {
 		sqlSession.insert("PurchaseMapper.addPurchase", purchase);
 	}
+	
+	@Override
+	public void addCart(Map<String, Integer> map) throws Exception {
+		sqlSession.insert("PurchaseMapper.addCart", map);
+	}
 
 	@Override
 	public Purchase getPurchase(int tranNo) throws Exception {
@@ -62,6 +67,14 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		sqlSession.update("PurchaseMapper.updateTranCode", purchase);
 		
 	}
+
+	@Override
+	public Integer checkCart(String userId) throws Exception {
+		return sqlSession.selectOne("PurchaseMapper.checkCart", userId);
+	}
+
+	
+	
 
 	
 
